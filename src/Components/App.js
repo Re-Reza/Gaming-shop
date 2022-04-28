@@ -1,5 +1,6 @@
 import React,{useEffect, useReducer} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/reset.css";
 import NavBar from "./nav-bar/NavBar";
 import { Home, ProductDetail, AdminPage, CartPage, GetHomeParams} from "./pages";
 import {BrowserRouter , Routes, Route} from "react-router-dom";

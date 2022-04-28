@@ -51,3 +51,6 @@ table {
 	-moz-box-sizing: border-box;
 	-ms-box-sizing: border-box;
 }
+a{
+	text-decoration: none;
+}
