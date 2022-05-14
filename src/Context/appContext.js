@@ -1,8 +1,8 @@
 import { createContext } from "react";
 
-const AppContext =createContext({
+export const AppContext =createContext({
     cartItems:[],
     dispatch:()=>{},
 });
 
-export default AppContext;
+// export default AppContext;

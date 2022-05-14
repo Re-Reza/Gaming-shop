@@ -6,23 +6,21 @@ export function Comment(props){
     console.log(props)
     return(
         <li className="list-group-item mb-2">
-            <div className="row">  
-                <div className="row">
-                    <div className="col-3">
-                        <img src={srcImg} width={50} className="img-fluid" />
-                    </div>
-                    <div className="col-3">
-                        {props.userName}
-                    </div>
+            <div className="commentItem">
+                <div className="commentItem-profile">
+                    <img src={srcImg} width={80} className="img-fluid" />
                 </div>
-
-                <div className="row">
-                    <div className="col-10">
-                        {props.commentText}
+                <div className="commentItem-detail">
+                    <div className="commentItem-detail-username">
+                        {props.userName}
+                        <div>
+                            <span className="commentItem-detail-date">{props.commentDate}</span>
+                            <span>{props.commentTime}</span>
+                        </div>
                     </div>
-                    <div className="col-2">
-                        {props.commentDate}
-                        {props.commentTime}
+
+                    <div className="commentItem-detail-commentText">
+                        {props.commentText}
                     </div>
 
                 </div>
@@ -30,3 +28,25 @@ export function Comment(props){
         </li>
     )   
 }
+
+{/* <div className="row">  
+<div className="row">
+    <div className="col-3">
+        <img src={srcImg} width={50} className="img-fluid" />
+    </div>
+    <div className="col-3">
+        {props.userName}
+    </div>
+</div>
+
+<div className="row">
+    <div className="col-10">
+        {props.commentText}
+    </div>
+    <div className="col-2">
+        {props.commentDate}
+        {props.commentTime}
+    </div>
+
+</div>
+</div> */}

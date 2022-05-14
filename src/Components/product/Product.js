@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import "../../css/product.css";
 import { Link } from 'react-router-dom';
 
-function Product(props)
+export function Product(props)
 {   
 
     console.log(props)
@@ -25,4 +25,4 @@ function Product(props)
     )
 }
 
-export default Product;
+// export default Product;

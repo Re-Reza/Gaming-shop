@@ -1,87 +1,108 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import "../../css/product.css";
 import axios from "axios";
 import {LoadingSendMessage} from "../pages";
+import {AppContext, ProductDetailContext} from "../../Context";
 
 export function CreateComment(props){
 
+    const {userState} = useContext(AppContext);
+    const {category, productId, addCommentToState} = useContext(ProductDetailContext);
+    console.log(useContext(ProductDetailContext));
+
     const [commentState, setComment]=useState({
-        userName:"",
+        userName:userState.username,
         commentText:"",
         commentDate:"",
         commentTime:"",
         errors:{
-            userNameError: "",
             commentTextError: "",
-        }
+            postFiled : "",
+        }, 
+        loading:false
     });
 
-    const [loading, setLoading] = useState(false);
-
-    function changeHandler(objectKey ,event){
+    function changeHandler(objectKey, event){
 
         setComment(previousState=>{
             return{
                 ...previousState,
                 [objectKey]:event.target.value,
                 commentDate:new Date().toLocaleDateString(),
-                commentTime: new Date().toLocaleTimeString(),
+                commentTime:new Date().toLocaleTimeString(),
             }
         });
     }
 
     function sendComment(){
-        if(isFormValid())
+
+        const { errors, ...data } = commentState;
+        console.log(data);
+
+        if(isFormValid())   //if(isFormValid())
         {
-            setLoading(true)
-            // console.log(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${state.itemKey}/comments.json`);
-            axios.post(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${props.itemKey}/comments.json`, commentState)
+            setComment({
+                ...commentState,
+                loading : true, 
+            })
+            axios.post(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${category}/${productId}/comments.json`, data)
             .then(response=>{
                 console.log(response);
-                setLoading(false);
-                props.addCommentToState(commentState)
-                document.querySelector("textarea").placeholder="write your comment";   
-                document.querySelector("textarea").classList.remove("red-placeholder");
-                document.querySelector("textarea").value="";   
-                document.getElementById("userNameInput").value=""
-            }).catch(err =>console.log(err))
-        }
-        if(commentState.commentText == ""){
-            document.querySelector("textarea").placeholder = "please write your comment!"
-            document.querySelector("textarea").classList.add("red-placeholder")
-        }
-        if(commentState.userName == ""){
-            console.log("yes")
-            document.getElementById("userNameInput").placeholder="Please fill this input";
-            document.getElementById("userNameInput").classList.add("red-placeholder");
+                addCommentToState(data);
+                setComment({
+                    ...commentState,
+                    commentText : "",
+                    errors:{
+                        commentTextError: "",
+                        postFiled : ""
+                    },
+                    loading :  false,
+                });
+                document.querySelector("textarea").value = "";
+            }).catch(err =>{
+                console.log(err);
+                setComment(previousState=>{
+                    return {
+                        ...previousState,
+                        errors : {
+                            ...previousState.errors,
+                            postFiled : "failed to post your comment please try again!",
+                        }
+                    }
+                });
+            });
         }
     }
 
     function isFormValid(){
-        const errors={};
-        if( !commentState.userName ){
-            errors.userNameError = "Please Enter your username!";
-        }
-        if( !commentState.commentText ){
-            errors.commentTextError = "Please Write your comment text!";
-        }
-        //با این کار زمانی که یک اینپوت بعد از دیدن ارور پر شود دیگر ارور ان نمای داده نمیشود چون ابجکت اررور فاقد ان ویژگی است و ست استیت میشود
-        setComment({...commentState,errors});
+        console.log(commentState.commentText);
+        if( commentState.commentText==""  )
+        {
+            setComment(previousState=>{
+                return {
+                    ...previousState,
+                    errors : {
+                        ...previousState.errors,
+                        commentTextError : "Please type your comment!",
+                    }
+                }
+            });
 
-        return errors.userNameError || errors.commentTextError ? false : true;
+            return false;
+        }
+        return true;
     }
 
     return(
-        <div className="textArea">
+        <div className="createComment-container">
             <div className="inputGroup">
-                <small className="text-danger">{commentState.errors.userNameError}</small>
-                <input id="userNameInput" onChange={changeHandler.bind(this, "userName")} type="text" className="form-control" placeholder="Enter your name"/>
-                <small className="text-danger">{commentState.errors.commentTextError}</small>
+                <small className="text-danger mb-2">{commentState.errors.commentTextError}</small>
+                {/* <small className="text-danger mb-2">{commentState.errors.postFiled}</small> */}
                 <textarea onChange={changeHandler.bind(this, "commentText")} className="form-control" placeholder="type your comment"></textarea>
             </div>
             <button onClick={sendComment} className="btn btn-success">send</button>
             {
-                loading? <LoadingSendMessage/>
+                commentState.loading? <LoadingSendMessage/>
                 :<></>
             }
         </div>

@@ -5,3 +5,24 @@
 .inputGroup input {
     margin-bottom:1em
 }
+.commentItem{
+    display: flex;
+    justify-content: space-between;
+}
+.commentItem-detail{
+    width: 90%;
+    display: flex;
+    flex-direction:column;
+}
+.commentItem-detail-username{
+    border-bottom: 1px solid #a5a5a5;
+    padding-bottom:.8em;
+    display: flex;
+    justify-content: space-between;
+}
+.commentItem-detail-date{
+    margin-right: .8em;
+}
+.commentItem-detail-commentText{
+    padding-top: .8em;
+}

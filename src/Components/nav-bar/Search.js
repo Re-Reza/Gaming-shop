@@ -26,7 +26,7 @@ export function Search(){
         <form onSubmit={submitSearch} className='d-flex'>
             <input onChange={inputChanged} type="search" className="navBar-searchInput" placeholder="search"/>    
             <button type="submit" className="navBar-searchButton">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                <i className="fa fa-search" aria-hidden="true"></i>
             </button>
         </form>
     )

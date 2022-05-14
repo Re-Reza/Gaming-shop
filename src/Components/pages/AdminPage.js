@@ -1,5 +1,6 @@
 import axios from "axios";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import {LoadingSendMessage} from "../pages";
 
 export function AdminPage()
 {
@@ -8,8 +9,15 @@ export function AdminPage()
         description:"",
         price:"",
         pictureUrl:"",
+        discount:0,
         productCategory:"laptop",
     });
+
+    const[loading, setLoading] = useState(false);
+
+    useEffect(()=>{
+        document.title = "Admin page";
+    }, [])
 
     function changeInputHandler(objectKey, event){
         setInputState(previousState=>{
@@ -25,22 +33,26 @@ export function AdminPage()
         event.preventDefault();
         const {productCategory, ...product} = inputState;
         console.log(product);
+        setLoading(true);
         axios.post(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${inputState.productCategory}.json`, product)
-        .then(response =>console.log(response))
+        .then(response =>{
+            console.log(response);
+            setLoading(false);
+        })
         .catch(error =>console.log(error))
     }
     
     return (
-        <form className="container-md d-flex justify-content-center mt-5"> 
+        <form className="container-md d-flex mb-5 justify-content-center mt-5"> 
             <div className="row justify-content-center w-75">
                 <div className="col-7">
-                    <label htmlFor="formGroupExampleInput" className="form-label">product title</label>
-                    <input onChange={changeInputHandler.bind(this, "title")} type="text" className="form-control" id="formGroupExampleInput" placeholder="title" />
+                    <label htmlFor="product-title" className="form-label">product title</label>
+                    <input onChange={changeInputHandler.bind(this, "title")} type="text" className="form-control" id="product-title" placeholder="title" />
                 </div>
                 <div className="col-7 mt-3">
                     <label htmlFor="adminPage-productCategory">select category of product:</label>
-                    <select onChange={changeInputHandler.bind(this, "productCategory")} id="adminPage-productCategory" className="form-select">
-                        <option select value="laptop" >laptop</option>
+                    <select defaultValue="laptop" onChange={changeInputHandler.bind(this, "productCategory")} id="adminPage-productCategory" className="form-select">
+                        <option  value="laptop" >laptop</option>
                         <option value="keyboard" >keyboard</option>
                         <option value="mouse" >mouse</option>
                         <option value="monitor" >monitor</option>
@@ -49,29 +61,32 @@ export function AdminPage()
                     </select>
                 </div>
                 <div className="col-7 mt-3">
-                    <label htmlFor="formGroupExampleInput2" className="form-label">description</label>
-                    <input onChange={changeInputHandler.bind(this, "description")} type="text" className="form-control" id="formGroupExampleInput2" placeholder="add description" />
+                    <label htmlFor="description" className="form-label">description</label>
+                    <input onChange={changeInputHandler.bind(this, "description")} type="text" className="form-control" id="description" placeholder="add description" />
                 </div>
                 <div className="col-7 mt-3">
-                    <label htmlFor="formGroupExampleInput2" className="form-label">price</label>
-                    <input onChange={changeInputHandler.bind(this, "price")} type="number" className="form-control" id="formGroupExampleInput2" placeholder="$" />
+                    <label htmlFor="price" className="form-label">price</label>
+                    <input onChange={changeInputHandler.bind(this, "price")} type="number" className="form-control" id="price" placeholder="$" />
                 </div>
                 <div className="col-7 mt-3">
-                    <label htmlFor="formGroupExampleInput2" className="form-label">picture url</label>
-                    <input onChange={changeInputHandler.bind(this, "pictureUrl")} type="text" className="form-control" id="formGroupExampleInput2" placeholder="https://" />
+                    <label>discount</label>
+                    <input onChange={changeInputHandler.bind(this, "discount")} type="number" className="form-control" id="discount" placeholder="$"/>
+                </div>
+                <div className="col-7 mt-3">
+                    <label htmlFor="picture-url" className="form-label">picture url</label>
+                    <input onChange={changeInputHandler.bind(this, "pictureUrl")} type="text" className="form-control" id="picture-url" placeholder="https://" />
                 </div>
 
                 <div className="col-7 mt-4">
-                    <div className="col">
+                    <div className="d-flex">
                         <button onClick={sendToServer} type="submit" className="btn btn-success">add product</button>
+                        {loading? <LoadingSendMessage/>:<></>}
                     </div>
                 </div>
 
             </div>
-
         </form>
     )
-    
 }
 
 // export default AdminPage;

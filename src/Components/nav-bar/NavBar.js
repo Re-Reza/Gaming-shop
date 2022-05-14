@@ -1,46 +1,58 @@
 import React, {useContext, useState} from 'react';
 import {CartIcon, CartItemsList} from "../Cart";
-import AppContext from "../../Context/appContext";
-import { Search, NavLinks, SignIn } from "./";
+import {AppContext} from "../../Context";
+import { Search, NavLinks, SignInIcon } from "./";
 import "../../css/navbar.css";
+import { Routes, Route, useLocation } from 'react-router';
 
 //در جایی که این کامپوننت فراخوانی شده در بین دو تگ کامپوننت BrowserRouter است در غیر این صورت کامپوننت لینک کار نمیکند
-function NavBar()
+function NavBar(props)
 {
     const {appState, dispatch} = useContext(AppContext);
     const [showState, setShowState] = useState(false)
-
+    const { pathname } = useLocation()
+    console.log(useLocation());
+    console.log(props.hideRoute);
     function toggleShowState(){
         console.log("toggleShowState")
         setShowState(previousState=>!previousState)
     }
 
+    if(pathname == props.hideRoute)
+    {
+        console.log("yes");
+        return <></>
+    }
+
     return(
         <>
             <nav className="navigation">
-                <div className="nav-top">
-                    <div className="nav-top-headPart">
-                        <h1 className="nav-title">Gaming shop</h1>
-                        <div className="nav-top-headPart-singIn"><SignIn/></div>
-                    </div>
-                    <div className="nav-top-search-cart-container">
-                        <div className="nav-top-search">
-                            <Search/>
+                <Routes>
+                    <Route path="/" element={        
+                    <div className="nav-top">
+                        <div className="nav-top-headPart">
+                            <h1 className="nav-title">Gaming shop</h1>
+                            <div className="nav-top-headPart-singIn"><SignInIcon/></div>
                         </div>
-                        <div>
-                            <CartIcon toggleShowState={toggleShowState} cartItems={appState.cartItems}/>
-                            {
-                                showState?
-                                <CartItemsList cartItems={appState.cartItems} />:
-                                <></>
-                            }
+                        <div className="nav-top-search-cart-container">
+                            <div className="nav-top-search">
+                                <Search/>
+                            </div>
+                            <div>
+                                <CartIcon toggleShowState={toggleShowState} cartItems={appState.cartItems}/>
+                                {
+                                    showState?
+                                    <CartItemsList cartItems={appState.cartItems} />:
+                                    <></>
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div className="nav-top-signIn">
-                        <SignIn/>
-                    </div>
-                </div>
-
+                        <div className="nav-top-signIn">
+                            <SignInIcon/>
+                        </div>
+                    </div> 
+                } />
+                </Routes>
             </nav>     
             
             <div className="nav-bottom">
@@ -49,23 +61,6 @@ function NavBar()
         </>   
     )
 }
-
-
-{/* <li>
-<Link to="/">Laptop</Link>
-</li>
-<li>
-<Link to="/">Gaming Chair</Link>
-</li>
-<li>
-<Link to="/">Mouse</Link>
-</li>
-<li>
-<Link to="/">Keyboard</Link>
-</li>
-<li>
-<Link to="/">Home</Link>
-</li> */}
 export default NavBar;
 
 

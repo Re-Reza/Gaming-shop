@@ -39,11 +39,9 @@
 /*--------------------cart list--------------------- */
 .cartItems-container{
     position: absolute;
-    z-index: 4;
+    z-index: 6;
     padding: 1em;
-    display: flex;
-    /* height: 300px; */
-    top: 64px;
+    top: 4em;
     right: 226px;
     background-color: #fff;
     border-radius: 8px;
@@ -76,9 +74,11 @@
     margin-left:1.5em;
     font-size: 1.2em;
 }
-/* .cartItem-infoPart .{
-    word-break: break-all;
-} */
+.cartItem img{
+    width: 40%;
+    height: 180px;
+    object-fit:contain;
+}
 .deleteCartItem{
     font-size:1.1em;
     cursor: pointer;
@@ -112,4 +112,13 @@
 .cartItemOptionContainer{
     display: flex;
     align-items:center
+}
+/* --------------------------responsive------------------------------ */
+@media screen and (max-width:770px) {
+    .cartItems-container{
+        width:100%;
+        left: 0;
+        right: 0;
+        top: 7em;
+    }
 }

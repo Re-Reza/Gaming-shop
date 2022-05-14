@@ -42,10 +42,10 @@ export function NavLinks() {
                     </li>
 
                     <li>
-                        <Link className="nav-bottom-link" to="/admin">Cart</Link>
+                        <Link className="nav-bottom-link" to="/cart">Cart</Link>
                     </li>
                     <li>
-                        <Link className="nav-bottom-link" to="/admin">Contact us</Link>
+                        <Link className="nav-bottom-link" to="/">Contact us</Link>
                     </li>
                 </ul>
             </li>

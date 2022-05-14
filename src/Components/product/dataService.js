@@ -41,11 +41,11 @@ let data={
     //     title: "MSI Crosshair15",
     //     price: "1249.89 ",
     //     picture: "https://m.media-amazon.com/images/I/41DUv6ON0yL._AC_SL1200_.jpg",
-    //     description: `15.6" 144Hz 3ms FHD Gaming Laptop Intel Core i7-11800H RTX3060 16GB 512GB NVMe SSD Win10 `
+    //     description: `15.6" 144Hz 3ms FHD Gaming Laptop Intel Core i7-11800H RTX3060 16GB 512GB NVMe SSD Win10`
     // }]
 }
 
-const getProductData={
+export const getProductData={
 
     getProducts:(category)=>{
     
@@ -64,7 +64,8 @@ const getProductData={
                     resolve( convertCategoryOfProducts(response.data) );
                 }
             })
-        })
+        });
+
         function convertAllProducts(data) {
             console.log(Object.entries(data));
             const allProducts = (Object.entries(data)).map(item=>{
@@ -83,40 +84,33 @@ const getProductData={
             console.log(allProducts);
             return allProducts;
         }
+
         function convertCategoryOfProducts(data){
             console.log(Object.entries(data));
-            const products=Object.entries(data).map(item=>{
+            const productsArray =  Object.entries(data).map(item=>{
                 return{
-                    ...item[1],
                     productId:item[0],
+                    ...item[1],
                 }
             });
-            const result=[{
+            return {
                 category:category,
-                products:products,
-            }];
-            console.log(result);
-
-            return result;
+                products:productsArray,
+            }
         }
     },
 
-    getProductById:(id)=>{
+    getProductById:(category,id)=>{
+        console.log(id)
         return new Promise((resolve, reject) =>{
-            axios.get("https://gaming-shop-1496f-default-rtdb.firebaseio.com/products.json")
+            console.log(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${category}/${id}.json`);
+            axios.get(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${category}/${id}.json`)
             .then(response =>{
                 console.log(response.data);
-                const responseResultToArray =  Object.entries(response.data);
-                const foundItem = responseResultToArray.find((item, index)=>{
-                    if( index.toString() === id.toString() )
-                        return item    
-                });
-                // console.log(foundItem[1].comments)
-                
-                resolve(foundItem);
+                resolve(response.data, response.data.comments);
             }).catch(err => console.log(err))
         })
     }
 }
 
-export default getProductData;
+// export default getProductData;

@@ -3,15 +3,15 @@ import React,{Component} from 'react';
 export class CartDetail extends Component {
 
     render(){
-        const {totalPrice} = this.props;
+        const {totalPrice, totalDiscount} = this.props;
 
         return(
             <div className="cartPage-cartDetailContainer">
-                <h3>cart details</h3>
+                <h3>Cart details</h3>
                 <div>
-                    <div className="cartPage-cartDetail">Total: <span>${totalPrice.toLocaleString()}</span></div>
-                    <div className="cartPage-cartDetail text-danger">Discount: <span>$</span></div>
-                    <div className="cartPage-cartDetail text-success">Price: <span>${}</span></div>
+                    <div className="cartPage-cartDetail mb-2">Total: <span>${totalPrice.toLocaleString()}</span></div>
+                    <div className="cartPage-cartDetail mb-2 text-danger">Discount: <span>${totalDiscount.toLocaleString()}</span></div>
+                    <div className="cartPage-cartDetail mb-2 text-success">Price: <span>${(parseFloat(totalPrice)-parseFloat(totalDiscount)).toLocaleString()}</span></div>
                 </div>
                 <div className="cartPage-cartDetail-Payment">
                     <i className="fa fa-cc-visa" aria-hidden="true"></i>

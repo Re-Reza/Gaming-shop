@@ -1,115 +1,133 @@
-import React, {useState, useEffect, Component, useContext} from 'react';
-import {useParams} from 'react-router-dom';
-import {Loading, LoadingSendMessage} from "../pages"
-import getProductData  from "../product/dataService";
-import {CommentList, CreateComment} from "../comment"
-import AppContext from "../../Context/appContext";
+import React, { useState, useEffect, useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { Loading, LoadingSendMessage } from "../pages"
+import { getProductData } from "../product";
+import { CommentList, CreateComment } from "../comment"
+import { AppContext, ProductDetailContext } from "../../Context";
+import "../../css/product-detail.css";
 
 //if we want to import this component like a module we must export component like below
-export function ProductDetail(){
+export function ProductDetail() {
 
     const [state, setState] = useState({
-        pictureUrl:"",
-        title:"",
-        description:"",
-        price:"",
-        loading:false,
-        itemKey:""
+        pictureUrl: "",
+        title: "",
+        description: "",
+        price: "",
+        loading: false,
+        itemKey: "",
+        discount: undefined,
+        comments: [],
     });
-    const [commentList, setCommentList] = useState([]);
-    const params = useParams();
 
-    const {dispatch} = useContext(AppContext)
+    const { category, productId } = useParams();
 
-    useEffect(()=>{
+    const { dispatch } = useContext(AppContext);
+
+    useEffect(() => {
+
+        document.title = "product detail"
         setState({
-            loading:true
+            ...state,
+            loading: true
         });
 
-        getProductData.getProductById(params.id).then(result=>{
-            const [itemKey, data] = result;
-            if(data.comments != undefined)
-            {
-                setCommentList(
-                    Object.entries(data.comments).map((item, index)=>{
-                        return {
-                            commentText: item[1].commentText,
-                            commentTime: item[1].commentTime,
-                            commentDate: item[1].commentDate,
-                            userName: item[1].userName,
-                        }
-                    })
-                );
+        getProductData.getProductById(category, productId).then((result) => {
+            let commentList = []; 
+            if(result.comments != undefined && result.comments != null) {
+                commentList = Object.entries(result.comments).map(item=>{
+                    console.log(item[1]);
+                    return item[1];
+                });
             }
+            console.log(commentList);
             
             setState({
-                pictureUrl : data.pictureUrl,
-                title : data.title,
-                description : data.description,
-                price : data.price,
-                loading:false,
-                itemKey : itemKey
+                pictureUrl: result.pictureUrl,
+                title: result.title,
+                description: result.description,
+                price: result.price,
+                loading: false,
+                itemKey: productId,
+                discount: result.discount,
+                comments: commentList,
             });
+
         });
 
-    },[]);
+    }, []);
 
-    function addCommentToState(commentState){
-        setCommentList(previousState=>{
-            return[
+    function addCommentToState(newComment){
+        setState(previousState=>{
+            return {
                 ...previousState,
-                commentState
-            ]
-        });
+                comments : [...previousState.comments, newComment]
+            }
+        })
     }
 
-    function addProductToCart(){
-        const {loading, ...product} = state;
-        dispatch({type: "addToCart", payload: product})
+    function addProductToCart() {
+        const { loading, ...product } = state;
+        dispatch({ type: "addToCart", payload: product })
     }
 
+    const zoomImg = () => {
+        let img = document.querySelector(".productDetail-productInfo-picContainer");
+        img.classList.toggle("zoomIn");
+    }
 
-    if(state.loading)
-    {
-        return(                     
+    let discount = state.discount == undefined ? 0 : state.discount;
+
+
+    if (state.loading) {
+        return (
             <div className="w-100 d-flex justify-content-center align-items-center vh-100">
-                <Loading/>
+                <Loading />
             </div>
         )
     }
     return (
-        <div className="container mt-5">
-            <div className="row">
-                <div className="col-4">
-                    <img src={state.pictureUrl} className="img-fluid"/>
+        <div className="productDetail mt-5">
+            <div className="productDetail-productInfo">
+                <div className="productDetail-productInfo-picContainer normal-zoom" onClick={zoomImg}>
+                    <img src={state.pictureUrl} className="img-fluid" />
                 </div>
-                <div className="col-6">
+                <div className="productDetail-productInfo-details">
                     <h1>{state.title}</h1>
-                    <p>{state.description}</p>
-                    <p className="offerPrice">{`$${(parseInt(state.price)-120).toLocaleString()}`}</p>
-                    <p className="previousPrice">{`$${(parseInt(state.price)).toLocaleString()}`}</p>
+                    <p className="description">{state.description}</p>
+                    <p className="offerPrice">{`$${(parseInt(state.price) - discount).toLocaleString()}`}</p>
+                    {
+                        state.discount == undefined ? <></> : <p className="previousPrice">${parseFloat(state.price)}</p>
+                    }
                     <button onClick={addProductToCart} className="btn btn-lg btn-success">
                         add to card
                         <i className="fa fa-cart-plus cartShopIcon" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
-            
-            <div className="ProductDetails-commentPart">
 
-                <div className="ProductDetails-commentList">
-                {
-                    commentList.length==0?
-                    <div className="alert alert-primary">
-                        No comment was found!
-                    </div>:
-                    <CommentList comments={commentList}/>
-                }
+            <ProductDetailContext.Provider value={{
+                category:category, 
+                productId:productId,
+                addCommentToState:addCommentToState,
+            }}>
+                <div className="ProductDetails-commentPart">
+
+                    <div className="ProductDetails-commentList">
+                        {
+                            state.comments.length == 0 ?
+                                <div className="alert alert-warning">
+                                    No comment was found!
+                                </div> :
+                                <CommentList comments={state.comments} />
+                        }
+                    </div>
+
+                    <CreateComment />
+
                 </div>
+            </ProductDetailContext.Provider>
 
-                <CreateComment addCommentToState={addCommentToState} itemKey={state.itemKey}/>
-
-            </div>
         </div>
     )
 }
