@@ -1,8 +1,8 @@
 {
   "name": "web",
-  "version": "0.1.0",``
+  "version": "0.1.0",
   "private": true,
-  "homepage": "https://re-reza.github.io/Gaming-shop/",
+  "homepage": "https://re-reza.github.io",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
