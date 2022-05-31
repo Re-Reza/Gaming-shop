@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Gaming-shop/static/css/main.a7d95c45.css",
-    "main.js": "/Gaming-shop/static/js/main.d0af5286.js",
+    "main.css": "/Gaming-shop/static/css/main.a1a8fe69.css",
+    "main.js": "/Gaming-shop/static/js/main.de454477.js",
     "static/js/787.d1d4a2c2.chunk.js": "/Gaming-shop/static/js/787.d1d4a2c2.chunk.js",
     "static/media/pic3.jpg": "/Gaming-shop/static/media/pic3.31c8fc105e4d07ec8c83.jpg",
     "static/media/pic2.jpg": "/Gaming-shop/static/media/pic2.965b0d1e5af633bc11b5.jpg",
     "static/media/pic1.jpg": "/Gaming-shop/static/media/pic1.12f63e09471cc70a1ec2.jpg",
     "index.html": "/Gaming-shop/index.html",
-    "main.a7d95c45.css.map": "/Gaming-shop/static/css/main.a7d95c45.css.map",
-    "main.d0af5286.js.map": "/Gaming-shop/static/js/main.d0af5286.js.map",
+    "main.a1a8fe69.css.map": "/Gaming-shop/static/css/main.a1a8fe69.css.map",
+    "main.de454477.js.map": "/Gaming-shop/static/js/main.de454477.js.map",
     "787.d1d4a2c2.chunk.js.map": "/Gaming-shop/static/js/787.d1d4a2c2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a7d95c45.css",
-    "static/js/main.d0af5286.js"
+    "static/css/main.a1a8fe69.css",
+    "static/js/main.de454477.js"
   ]
 }
