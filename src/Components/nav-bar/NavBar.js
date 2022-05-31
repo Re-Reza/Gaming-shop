@@ -28,7 +28,7 @@ function NavBar(props)
         <>
             <nav className="navigation">
                 <Routes>
-                    <Route path="/" element={        
+                    <Route path="/Gaming-shop" element={        
                     <div className="nav-top">
                         <div className="nav-top-headPart">
                             <h1 className="nav-title">Gaming shop</h1>
