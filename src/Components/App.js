@@ -18,7 +18,7 @@ function App() {
     username:"",
   });
 
-  const MAINURL= "https://re-reza.github.io/Gaming-shop/";
+  const MAINURL= "/Gaming-shop";
 
   useEffect(()=>{
     dispatch( {type:"getCartItems"} );
@@ -28,6 +28,7 @@ function App() {
     });
 
   }, [])
+  console.log("rununing")
 
   return (
     <div className="App">
