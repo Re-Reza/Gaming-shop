@@ -18,6 +18,7 @@ function App() {
     username:"",
   });
 
+  const MAINURL= "https://re-reza.github.io/Gaming-shop/";
 
   useEffect(()=>{
     dispatch( {type:"getCartItems"} );
@@ -35,12 +36,12 @@ function App() {
 
           <NavBar hideRoute={"/signin"}/>
             <Routes>
-                <Route path="/" element={<Home/>} />
-                <Route path="/signin" element={<SignIn/>} />
-                <Route path="/products/:category" element={<ProductCategoryPage/>} />
-                <Route path="/product-detail/:category/:productId" element={<ProductDetail/>} />
-                <Route path="/admin" element={<AdminPage/> } /> 
-                <Route path="/cart" element={<CartPage/>} />
+                <Route path={MAINURL} element={<Home/>} />
+                <Route path={MAINURL+"/signin"} element={<SignIn/>} />
+                <Route path={MAINURL+"/products/:category"} element={<ProductCategoryPage/>} />
+                <Route path={MAINURL+"/product-detail/:category/:productId"} element={<ProductDetail/>} />
+                <Route path={MAINURL+"/admin"} element={<AdminPage/> } /> 
+                <Route path={MAINURL+"/cart"} element={<CartPage/>} />
             </Routes>
           <Footer hideRoute={"/signin"}/>
           
