@@ -4,6 +4,7 @@ import {AppContext} from "../../Context";
 import { Search, NavLinks, SignInIcon } from "./";
 import "../../css/navbar.css";
 import { Routes, Route, useLocation } from 'react-router';
+import MAIN_URL from "../MAINURL";
 
 //در جایی که این کامپوننت فراخوانی شده در بین دو تگ کامپوننت BrowserRouter است در غیر این صورت کامپوننت لینک کار نمیکند
 function NavBar(props)
@@ -11,16 +12,13 @@ function NavBar(props)
     const {appState, dispatch} = useContext(AppContext);
     const [showState, setShowState] = useState(false)
     const { pathname } = useLocation()
-    console.log(useLocation());
-    console.log(props.hideRoute);
+
     function toggleShowState(){
-        console.log("toggleShowState")
         setShowState(previousState=>!previousState)
     }
 
     if(pathname == props.hideRoute)
     {
-        console.log("yes");
         return <></>
     }
 
@@ -28,7 +26,7 @@ function NavBar(props)
         <>
             <nav className="navigation">
                 <Routes>
-                    <Route path="/Gaming-shop" element={        
+                    <Route path={MAIN_URL} element={        
                     <div className="nav-top">
                         <div className="nav-top-headPart">
                             <h1 className="nav-title">Gaming shop</h1>

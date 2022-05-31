@@ -1,6 +1,7 @@
 import React from 'react';
 import { CartItem } from './CartItem';
 import { Link } from 'react-router-dom';
+import MAIN_URL from "../MAINURL";
 
 export function CartItemsList(props){
 
@@ -22,7 +23,7 @@ export function CartItemsList(props){
                     props.cartItems.map((item, index)=> <CartItem item={{...item, index}}  key={index} />)   
                 }
                 </ul>
-                <Link to="/cart" className="cartLink btn btn-primary btn-sm">see your cart</Link>
+                <Link to={MAIN_URL+"/cart"} className="cartLink btn btn-primary btn-sm">see your cart</Link>
             </div>
             
         }

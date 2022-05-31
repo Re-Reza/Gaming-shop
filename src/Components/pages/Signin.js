@@ -3,6 +3,7 @@ import React, {useState, useEffect, useContext} from "react";
 import "../../css/signInPage.css";
 import { useNavigate } from "react-router";
 import {AppContext} from "../../Context";
+import MAIN_URL from "../MAINURL";
 
 export function SignIn(){
 
@@ -37,13 +38,11 @@ export function SignIn(){
         {
             axios.get("https://gaming-shop-1496f-default-rtdb.firebaseio.com/adminInfo.json")
             .then(response=>{
-                console.log(Object.entries(response.data));
                 const {password, name} = Object.entries(response.data)[0][1];
-                console.log(Object.entries(response.data)[0][1]);
-                console.log(password);
+                
                 if(password == state.inputValue)
                 {
-                    confirmUsername(name,"/admin")
+                    confirmUsername(name, MAIN_URL+"/admin")
                 } 
                 else
                     alert("password is incorrect");
@@ -51,7 +50,7 @@ export function SignIn(){
             .catch(error=>console.log(error));
         }
         else{
-            confirmUsername(state.inputValue, "/");
+            confirmUsername(state.inputValue, MAIN_URL);
         }
     }
 

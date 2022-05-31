@@ -3,8 +3,6 @@ import { ProductCategory } from './';
 
 export function ProductsCategorySample(props){
 
-    console.log(props.products);
-
     return(
         <div>
         {

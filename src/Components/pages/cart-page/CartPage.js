@@ -14,20 +14,15 @@ export function CartPage() {
     useEffect(() => {
 
         document.title = "Cart";
-        console.log(appState.cartItems);
-
         let totalPrice = appState.cartItems.reduce((accumulator, currentItem) => {
             return accumulator + (parseInt(currentItem.price) * currentItem.count);
         }, 0);
-        console.log(totalPrice);
 
-        console.log(appState.cartItems)
         let totalDiscount = appState.cartItems.reduce((accumulator, currentItem) => {
             let discount = currentItem.discount == undefined || currentItem.discount == null ? 0 : currentItem.discount;
             return accumulator + (discount * currentItem.count);
         }, 0);
 
-        console.log(totalDiscount);
 
         setState({
             ...state,
@@ -42,9 +37,9 @@ export function CartPage() {
     return (
         <div className="container mb-5">
             {
-                appState.cartItems == 0 ?
-                <></>
-                :
+                // appState.cartItems == 0 ?
+                // <></>
+                // :
                 <>
                     <div className="cartPage-head"><h1 className="cartPage-title">Shopping cart</h1></div>
                     <div className="row">

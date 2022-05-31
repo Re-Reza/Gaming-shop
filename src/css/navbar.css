@@ -31,7 +31,8 @@
     padding: .5em;
     width: 100%;
     background-color: #e5e5e5;
-    border-radius: 9px 0 0 9px;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 9px;
 }
 .navBar-searchInput:focus{
     outline: none;

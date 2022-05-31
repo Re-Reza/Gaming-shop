@@ -3,7 +3,6 @@ import srcImg from "./user-img.png";
 
 export function Comment(props){
 
-    console.log(props)
     return(
         <li className="list-group-item mb-2">
             <div className="commentItem">

@@ -36,12 +36,10 @@ export function ProductDetail() {
             let commentList = []; 
             if(result.comments != undefined && result.comments != null) {
                 commentList = Object.entries(result.comments).map(item=>{
-                    console.log(item[1]);
                     return item[1];
                 });
             }
-            console.log(commentList);
-            
+
             setState({
                 pictureUrl: result.pictureUrl,
                 title: result.title,

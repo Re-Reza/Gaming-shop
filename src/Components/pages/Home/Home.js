@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, useContext } from 'react';
 import { getProductData } from "../../product";
 import { Loading } from "../Loading";
 import { Slider, SpecialOffers, ProductsCategorySample, TrustPanel } from "./";
 import "../../../css/home.css";
+
 
 export class Home extends Component {
 
@@ -14,7 +15,7 @@ export class Home extends Component {
     componentDidMount(){
         document.title="Home";
         const { params } = this.props;
-        console.log(params)
+
         getProductData.getProducts(params).then(result => {
             this.setState({
                 loading: false,
@@ -22,20 +23,6 @@ export class Home extends Component {
             });
         });
     }
-
-    // componentDidUpdate(prevProps, prevState) {
-    //     const { params } = this.props;
-    //     console.log(params)
-    //     getProductData.getProducts(params).then(result => {
-    //         if (prevProps != this.props) {
-    //             console.log(prevProps, this.props);
-    //             this.setState({
-    //                 loading: false,
-    //                 products: result
-    //             });
-    //         }
-    //     });
-    // }
 
     render() {
 

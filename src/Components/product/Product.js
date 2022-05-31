@@ -2,11 +2,10 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import "../../css/product.css";
 import { Link } from 'react-router-dom';
+import MAIN_URL from "../MAINURL";
 
 export function Product(props)
 {   
-
-    console.log(props)
     const {description, pictureUrl, price, productId, title} = props.product
 
     return(
@@ -19,7 +18,7 @@ export function Product(props)
                 <p className="offerPrice">{`$${(parseInt(price)).toLocaleString()}`}</p>
                 <p className="previousPrice">{`$${(parseInt(price)).toLocaleString()}`}</p>
                 <p className="card-text">{description}</p>
-                <Link to={`/product-detail/${pictureUrl}`} className="btn btn-primary">show more</Link>
+                <Link to={MAIN_URL+`/product-detail/${pictureUrl}`} className="btn btn-primary">show more</Link>
             </div>
         </div>
     )

@@ -8,7 +8,6 @@ export function CreateComment(props){
 
     const {userState} = useContext(AppContext);
     const {category, productId, addCommentToState} = useContext(ProductDetailContext);
-    console.log(useContext(ProductDetailContext));
 
     const [commentState, setComment]=useState({
         userName:userState.username,
@@ -37,9 +36,8 @@ export function CreateComment(props){
     function sendComment(){
 
         const { errors, ...data } = commentState;
-        console.log(data);
-
-        if(isFormValid())   //if(isFormValid())
+    
+        if(isFormValid())  
         {
             setComment({
                 ...commentState,
@@ -47,7 +45,6 @@ export function CreateComment(props){
             })
             axios.post(`https://gaming-shop-1496f-default-rtdb.firebaseio.com/products/${category}/${productId}/comments.json`, data)
             .then(response=>{
-                console.log(response);
                 addCommentToState(data);
                 setComment({
                     ...commentState,
@@ -60,7 +57,7 @@ export function CreateComment(props){
                 });
                 document.querySelector("textarea").value = "";
             }).catch(err =>{
-                console.log(err);
+
                 setComment(previousState=>{
                     return {
                         ...previousState,
@@ -75,7 +72,7 @@ export function CreateComment(props){
     }
 
     function isFormValid(){
-        console.log(commentState.commentText);
+
         if( commentState.commentText==""  )
         {
             setComment(previousState=>{
@@ -97,7 +94,6 @@ export function CreateComment(props){
         <div className="createComment-container">
             <div className="inputGroup">
                 <small className="text-danger mb-2">{commentState.errors.commentTextError}</small>
-                {/* <small className="text-danger mb-2">{commentState.errors.postFiled}</small> */}
                 <textarea onChange={changeHandler.bind(this, "commentText")} className="form-control" placeholder="type your comment"></textarea>
             </div>
             <button onClick={sendComment} className="btn btn-success">send</button>

@@ -28,7 +28,6 @@ export function SpecialOffers(props){
             });
             productsArray=[...productsArray, ...tempArray];
         });
-        // console.log(productsArray);
 
         setState({
             ...state,

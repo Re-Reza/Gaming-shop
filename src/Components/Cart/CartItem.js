@@ -4,7 +4,6 @@ import {AppContext} from "../../Context";
 export function CartItem(props){
 
     const {title, price, pictureUrl, count,index} = props.item;
-    console.log(props.item)
     const {appState, dispatch} = useContext(AppContext);
 
     function deleteItemCall(){

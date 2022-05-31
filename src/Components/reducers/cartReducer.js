@@ -2,8 +2,6 @@
 
 export function cartReducer(state, action) {
 
-    console.log(state ,action)
-
     switch (action.type) {
         
         case "addToCart":
@@ -46,7 +44,6 @@ function getCartItems(state)
         const data = localStorage.getItem("cartItems");
         if(data == undefined) throw("no Item was fond")
         items = JSON.parse(data);
-        console.log(items);
     }
     catch(err){
         console.log(err);
@@ -60,10 +57,8 @@ function getCartItems(state)
 }
 
 function deleteItem(state, {itemKey}){
-    console.log(itemKey)
     let newCartItems = [];
     const foundItem = state.cartItems.find(item => item.itemKey === itemKey);
-    console.log(foundItem);
     if(foundItem.count==1){
         newCartItems = state.cartItems.filter(item=>item.itemKey != itemKey);
     }

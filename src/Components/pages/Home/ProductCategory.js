@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {SpecialOfferProduct} from "./"
+import MAIN_URL from "../../MAINURL";
 
 export function ProductCategory(props){
-
-    console.log(props.category);
     const {category, products} = props.category;
     const {view, itemQuantity} = props;
 
@@ -14,7 +13,7 @@ export function ProductCategory(props){
             <div className="product-category-head">
                 <span>{category}</span>
                 {
-                    view?<Link className="btn view-btn btn-dark btn-lg" to={`products/${category}`}>view all</Link>:<></>
+                    view?<Link className="btn view-btn btn-dark btn-lg" to={MAIN_URL+`/products/${category}`}>view all</Link>:<></>
                 }
             </div>
 

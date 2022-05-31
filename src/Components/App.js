@@ -7,6 +7,7 @@ import {BrowserRouter , Routes, Route} from "react-router-dom";
 import {AppContext} from "../Context";
 import {cartReducer} from "./reducers";
 import {Footer} from "./footer";
+import MAIN_URL from"./MAINURL";
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
     username:"",
   });
 
-  const MAINURL= "/Gaming-shop";
+
 
   useEffect(()=>{
     dispatch( {type:"getCartItems"} );
@@ -28,7 +29,6 @@ function App() {
     });
 
   }, [])
-  console.log("rununing")
 
   return (
     <div className="App">
@@ -37,12 +37,12 @@ function App() {
 
           <NavBar hideRoute={"/signin"}/>
             <Routes>
-                <Route path={MAINURL} element={<Home/>} />
-                <Route path={MAINURL+"/signin"} element={<SignIn/>} />
-                <Route path={MAINURL+"/products/:category"} element={<ProductCategoryPage/>} />
-                <Route path={MAINURL+"/product-detail/:category/:productId"} element={<ProductDetail/>} />
-                <Route path={MAINURL+"/admin"} element={<AdminPage/> } /> 
-                <Route path={MAINURL+"/cart"} element={<CartPage/>} />
+                <Route path={MAIN_URL} element={<Home/>} />
+                <Route path={MAIN_URL+"/signin"} element={<SignIn/>} />
+                <Route path={MAIN_URL+"/products/:category"} element={<ProductCategoryPage/>} />
+                <Route path={MAIN_URL+"/product-detail/:category/:productId"} element={<ProductDetail/>} />
+                <Route path={MAIN_URL+"/admin"} element={<AdminPage/> } /> 
+                <Route path={MAIN_URL+"/cart"} element={<CartPage/>} />
             </Routes>
           <Footer hideRoute={"/signin"}/>
           

@@ -15,7 +15,6 @@ export function Search(){
             searchInput:event.target.value,
         })
     }
-    //  /?q=search
     const submitSearch=(event)=>{
         event.target.reset(); //clear inputs in form
         event.preventDefault();

@@ -7,14 +7,12 @@ import {Loading} from "./";
 export function ProductCategoryPage(){
 
     const params = useParams();
-    console.log(params.category);
 
     const [state, setState] = useState({
         category:"", 
         products:[],
         loading:false,
     });
-    console.log(state)
 
     useEffect(()=>{
         (async function(){
@@ -26,7 +24,6 @@ export function ProductCategoryPage(){
             });
 
             const data = await getProductData.getProducts(params.category);
-            console.log(data);
 
             setState(previousState=>{
                 return{
