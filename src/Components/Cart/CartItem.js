@@ -3,7 +3,7 @@ import {AppContext} from "../../Context";
 
 export function CartItem(props){
 
-    const {title, price, pictureUrl, count,index} = props.item;
+    const {title, price, pictureUrl, count,index, discount} = props.item;
     const {appState, dispatch} = useContext(AppContext);
 
     function deleteItemCall(){
@@ -20,7 +20,7 @@ export function CartItem(props){
             <img width={170} src={pictureUrl} className="img-fluid img-thumbnail" alt={title}/>
             <div className="cartItem-infoPart">
                 <div>Product: {title}</div>
-                <div className="text-success">Price: ${( (price-120)*count ).toLocaleString()}</div>
+                <div className="text-success">Price: ${( (price-parseFloat(discount))*count ).toLocaleString()}</div>
                 <div className="cartItemOptionContainer">
                     <div className="cartItemOption-icons">
                         <i onClick={addItemCall} title="add" className="addCartItem text-success fa fa-plus-square-o"></i>

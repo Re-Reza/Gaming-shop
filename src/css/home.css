@@ -1,15 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 #home{
     background-color:#323232;
 }
+.App{
+    font-family: 'Lato', sans-serif;
+}
 /* ---------------------------carousel---------------------------------*/
-/* .carousel-caption{
-    font-size: 2em;
-    background: #fff;
-    color: #000;
-    position: absolute;
-    top: -48px;
-    bottom: 50%;
-} */
+
 .carousel-item{ 
     height: 600px;
 }
