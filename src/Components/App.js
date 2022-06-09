@@ -35,7 +35,7 @@ function App() {
       <BrowserRouter>
         <AppContext.Provider value={ {userState:userState, setUserState:setUserState,appState:state, dispatch} } >
 
-          <NavBar hideRoute={"/signin"}/>
+          <NavBar hideRoute={MAIN_URL+"/signin"}/>
             <Routes>
                 <Route path={MAIN_URL} element={<Home/>} />
                 <Route path={MAIN_URL+"/signin"} element={<SignIn/>} />
@@ -44,7 +44,7 @@ function App() {
                 <Route path={MAIN_URL+"/admin"} element={<AdminPage/> } /> 
                 <Route path={MAIN_URL+"/cart"} element={<CartPage/>} />
             </Routes>
-          <Footer hideRoute={"/signin"}/>
+          <Footer hideRoute={MAIN_URL+"/signin"}/>
           
         </AppContext.Provider>
 
